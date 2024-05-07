@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Manager</title>
+    <style>
+        .order-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .order-details {
+            margin-top: 10px;
+        }
+        .date-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to Orders Management page</h2>
+    <h3>Active Orders:</h3>
+    {% for order in orders %}
+    {% if order.status != "Completed" and order.status != "Cancelled" %}
+    <div class="order-box">
+        <h4>Order ID: {{ order.id }}</h4>
+        <div class="date-container">
+            <p>Date Placed: {{ order.created_at }}</p>
+            <!-- Access full shipping address -->
+            <p>Shipping Address: {{ order.shipping_address.address }}, {{ order.shipping_address.city }}, {{ order.shipping_address.state }}, {{ order.shipping_address.pincode }}</p>
+            <p>Contact No. : {{ order.contact }}</p>
+            <p>Name: {{ order.shipping_address.name }}</p>
+            <!-- Print the current status -->
+            <p>Current Status: {{ order.status }}</p>
+        </div>
+        <div class="order-details">
+            <h4>Products:</h4>
+            <ul>
+                {% for item in order.orderitem_set.all %}
+                <li>
+                    <p>Product: {{ item.product.name }}</p>
+                    <p>Quantity: {{ item.quantity }}</p>
+                    <p>Price: ₹{{ item.price }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+            <!-- Display total price for the order -->
+            <h3>Total Price: ₹{{ order.total_price }}</h3>
+        </div>
+        <!-- Update order status form -->
+        <form class="update-order-form" method="POST" action="{% url 'update_order_status' order.id %}">
+            {% csrf_token %}
+            <label for="new-status">New Status:</label>
+            <select name="new_status" id="new-status">
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="On Hold">On Hold</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+                <!-- Optionally, you can add an option for Completed and Cancelled here -->
+            </select>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

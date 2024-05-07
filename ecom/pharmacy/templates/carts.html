@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Cart</title>
+	</head>
+	<body>
+		<h1>Cart Page</h1>
+		<div style="display: flex; height: 100%; width: 100%">
+			<div style="width: 50%; height: 100%; padding: 2%">
+				<ul>
+					{% for cart_item in cart_items %}
+					<li style="margin: 10px">
+						{{ cart_item.product.name }} - Quantity:
+						{{cart_item.quantity}} - Price: ₹{{ cart_item.price }}
+						<div style="display: flex">
+							<form
+								action="{% url 'remove_from_cart' cart_item.id %}"
+								method="post"
+							>
+								{% csrf_token %}
+								<button type="submit">Remove</button>
+							</form>
+						</div>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div style="width: 50%; height: 100%; padding: 2%">
+				<h2>Total: ₹{{ total_amount }}</h2>
+				<form action="{% url 'place_order' %}" method="post">
+					{% csrf_token %}
+					<button type="submit">Proceed to Buy</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

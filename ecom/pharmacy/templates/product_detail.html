@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{{ product.name }}</title>
+	</head>
+	<body>
+		<div
+			style="
+				width: 100%;
+				display: flex;
+				justify-content: end;
+				align-items: center;
+				margin-block: 20px;
+			"
+		>
+			<a style="margin-inline: 50px; font-size: x-large" href="/carts"
+				>Cart</a
+			>
+			<a
+				style="margin-inline: 50px; font-size: x-large"
+				href="/accountinfo"
+				>Profile</a
+			>
+		</div>
+		<div style="display: flex; height: 100%; width: 100%">
+			<div style="width: 50%; height: 100%; padding: 2%">
+				<h1 style="text-align: center">{{ product.name }}</h1>
+				<p><b>By:</b> {{ product.by }}</p>
+				<p><b>Composition:</b> {{ product.salt_composition }}</p>
+				<p>
+					<b> Description:</b> <br />
+					{{ product.description }}
+				</p>
+				<p><b>Price:</b> ₹{{ product.price }}</p>
+				<button onclick="addToCart({{ product.pk }})">
+					Add To Cart
+				</button>
+			</div>
+			<div
+				style="
+					width: 50%;
+					height: 50vh;
+					padding: 2%;
+					border: 2px solid black;
+				"
+			>
+				{% if product.image %}
+				<img
+					src="{{ product.image.url }}"
+					alt="{{ product.name }}"
+					style="width: 100%; height: 100%"
+				/>
+				{% endif %}
+			</div>
+		</div>
+		<script>
+			function addToCart(productId) {
+				fetch(`/add_to_cart/${productId}/`, {
+					method: "POST",
+					headers: {
+						"X-CSRFToken": "{{ csrf_token }}",
+					},
+				})
+					.then((response) => {
+						if (response.ok) {
+							console.log("Product added to cart");
+						} else {
+							console.error("Failed to add product to cart");
+						}
+					})
+					.catch((error) => {
+						console.error("Error:", error);
+					});
+			}
+		</script>
+	</body>
+</html>

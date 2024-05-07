@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Orders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <h1>Your Orders</h1>
+    <ul>
+        {% for order in orders %}
+        <li>
+            <h3>Order ID: {{ order.id }}</h3>
+            <p>Status: {{ order.status }}</p>
+            <p>Date Placed: {{ order.created_at }}</p>
+            <p>Name: {{ order.shipping_address.name }}</p>
+            <p>Shipping Address: {{ order.shipping_address.address }}, {{ order.shipping_address.city }}, {{ order.shipping_address.state }}, {{ order.shipping_address.pincode }}</p>
+            <h4>Products:</h4>
+            <ul>
+                {% for item in order.orderitem_set.all %}
+                <li>
+                    <p>Product: {{ item.product.name }}</p>
+                    <p>Quantity: {{ item.quantity }}</p>
+                    <p>Price: ₹{{ item.price }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+		<h3>Total Price: {{ order.total_price }}</h3>
+        {% endfor %}
+    </ul>
+</body>
+</html>
