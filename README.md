@@ -37,6 +37,8 @@ To install and run Fringe locally on your machine, follow these steps:
 
 - Visit the website in your browser: `http://localhost:8000`
 - Admin Panel: `http://localhost:8000/admin` (Use superuser credentials)
+- superuser credentials: User :- admin, Pass:- 1234
+- For Order Management: Login with :- ordermanager, Pass:- ordermanager@123
 
 ## Folder Structure
 ```bash
