@@ -10,14 +10,28 @@ This project is a simple e-commerce website developed using Django, a high-level
 - **Shopping Cart:** Users can add products to their cart, view the cart, update quantities, remove items, and see the total price.
 - **Order Processing:** Users can place orders, and admins can manage and fulfill orders. Order details are securely stored in the database.
 - **Database Integration:** Uses a relational database (SQLite, MySQL, PostgreSQL, etc.) to store and retrieve user information, product data, and order details.
-- **Bonus Task (Optional):** Provides an API for external systems to interact with the backend.
 
-## Installation and Setup
 
-1. **Clone the Repository:** `git clone https://github.com/yourusername/ecommerce-project.git`
-2. **Run Migrations:** `python manage.py migrate`
-3. **Create Superuser:** `python manage.py createsuperuser`
-4. **Run the Development Server:** `python manage.py runserver`
+## Installation
+
+To install and run Fringe locally on your machine, follow these steps:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/atharvt17/epharma-django
+   ```
+2. **Navigate to the Directory**:
+   ```bash
+   cd ecom
+   ```
+3. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Run the Development Server**:
+   ```bash
+   http://localhost:8000/
+   ```
 
 ## Usage
 
